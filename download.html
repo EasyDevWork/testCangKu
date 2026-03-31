@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Android Demo 下载</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 36px;
+            font-weight: bold;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 18px;
+        }
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+        
+        .card h2 {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card h2 i {
+            color: #667eea;
+        }
+        
+        .card ul {
+            list-style: none;
+        }
+        
+        .card li {
+            padding: 8px 0;
+            color: #555;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .card li:last-child {
+            border-bottom: none;
+        }
+        
+        .card li:before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .qr-section {
+            text-align: center;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .qr-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #667eea 25%, transparent 25%),
+                        linear-gradient(-45deg, #764ba2 25%, transparent 25%),
+                        linear-gradient(45deg, transparent 75%, #667eea 75%),
+                        linear-gradient(-45deg, transparent 75%, #764ba2 75%);
+            background-size: 20px 20px;
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+        
+        .instructions {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        
+        .instructions h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #666;
+            font-size: 14px;
+            border-top: 1px solid #e9ecef;
+            padding-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">A</div>
+            <h1>Android Demo 应用</h1>
+            <p class="subtitle">由 OpenClaw + DeepSeek 创建 | GitHub 集成验证</p>
+        </div>
+        
+        <div class="content">
+            <div class="card">
+                <h2>📱 应用功能</h2>
+                <ul>
+                    <li>响应式 UI 设计</li>
+                    <li>按钮点击计数器</li>
+                    <li>动态颜色变化效果</li>
+                    <li>Toast 消息提示</li>
+                    <li>长按重置功能</li>
+                    <li>Material Design 风格</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h2>🛠️ 技术特性</h2>
+                <ul>
+                    <li>Java 语言编写</li>
+                    <li>AndroidX 组件</li>
+                    <li>最小 SDK 24 (Android 7.0)</li>
+                    <li>目标 SDK 34 (Android 14)</li>
+                    <li>Gradle 8.3+ 构建</li>
+                    <li>完整的项目结构</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="qr-section">
+            <h2>📥 下载项目</h2>
+            <p>扫描二维码或点击按钮下载完整项目</p>
+            
+            <div class="qr-code">
+                <div class="qr-placeholder">
+                    GitHub<br>项目二维码
+                </div>
+            </div>
+            
+            <a href="https://github.com/EasyDevWork/testCangKu/archive/refs/heads/main.zip" class="download-btn">
+                ⬇️ 下载 ZIP 文件
+            </a>
+            <p style="margin-top: 10px; color: #666; font-size: 14px;">
+                文件大小: ~50KB | 包含完整 Android 项目
+            </p>
+        </div>
+        
+        <div class="instructions">
+            <h3>🚀 快速开始指南</h3>
+            
+            <p><strong>步骤 1: 下载项目</strong></p>
+            <div class="code-block">
+git clone https://github.com/EasyDevWork/testCangKu.git<br>
+cd testCangKu
+            </div>
+            
+            <p><strong>步骤 2: 构建 APK</strong></p>
+            <div class="code-block">
+cd AndroidDemo<br>
+chmod +x gradlew<br>
+./gradlew assembleDebug
+            </div>
+            
+            <p><strong>步骤 3: 安装到设备</strong></p>
+            <div class="code-block">
+adb install app/build/outputs/apk/debug/app-debug.apk
+            </div>
+            
+            <p><strong>或者使用构建脚本</strong></p>
+            <div class="code-block">
+chmod +x build-apk.sh<br>
+./build-apk.sh
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>📁 项目仓库: <a href="https://github.com/EasyDevWork/testCangKu" style="color: #667eea;">github.com/EasyDevWork/testCangKu</a></p>
+            <p>🛠️ 创建工具: OpenClaw + DeepSeek | 📅 创建时间: 2026-03-31</p>
+            <p>此项目展示了 AI 辅助编程和 GitHub 自动化工作流的能力</p>
+        </div>
+    </div>
+</body>
+</html>
